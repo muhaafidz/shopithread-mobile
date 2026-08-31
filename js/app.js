@@ -11,7 +11,10 @@
         model: 'google/gemini-2.5-flash',
         aiEnabled: false,
         replyControl: 'everyone',
-        activeAccountId: null
+        activeAccountId: null,
+        syncToken: '',
+        syncOwner: 'muhaafidz',
+        syncRepo: 'shopithread-sync'
       },
       activeTab: 'studio'
     }

@@ -39,6 +39,24 @@
         </div>
 
         <div class="card">
+          <h3>📱 Phone Sync (GitHub)</h3>
+          <label>GitHub fine-grained token (shopithread-sync repo only)</label>
+          <input type="password" id="setSyncToken" value="${App.esc(s.syncToken || '')}" placeholder="github_pat_..." autocomplete="off">
+          <div class="row">
+            <div><label>Owner</label><input type="text" id="setSyncOwner" value="${App.esc(s.syncOwner || 'muhaafidz')}"></div>
+            <div><label>Repo</label><input type="text" id="setSyncRepo" value="${App.esc(s.syncRepo || 'shopithread-sync')}"></div>
+          </div>
+          <div class="row" style="margin-top:14px;">
+            <button class="btn btn-primary btn-sm" id="btnSyncPull" style="flex:1">⬇️ Pull</button>
+            <button class="btn btn-ghost btn-sm" id="btnSyncPush" style="flex:1">⬆️ Push</button>
+          </div>
+          <div class="hint">
+            Create a fine-grained token at <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener noreferrer">github.com/settings/personal-access-tokens</a>
+            with <b>Contents: Read and write</b> on <b>shopithread-sync</b> only. Payloads carry product data only — never keys or cookies.
+          </div>
+        </div>
+
+        <div class="card">
           <h3>📦 Data</h3>
           <div class="row">
             <button class="btn btn-ghost btn-sm" id="btnExportAll" style="flex:1">⬇️ Export backup (JSON)</button>
@@ -97,6 +115,35 @@
         await App.persistSettings();
         App.toast('Posting defaults saved');
       };
+
+      const saveSync = async () => {
+        s.syncToken = document.getElementById('setSyncToken').value.trim();
+        s.syncOwner = document.getElementById('setSyncOwner').value.trim() || 'muhaafidz';
+        s.syncRepo = document.getElementById('setSyncRepo').value.trim() || 'shopithread-sync';
+        await App.persistSettings();
+      };
+
+      const syncBtn = (id, fn) => {
+        document.getElementById(id).onclick = async () => {
+          const btn = document.getElementById(id);
+          const label = btn.textContent;
+          btn.disabled = true;
+          btn.textContent = '⏳ Syncing...';
+          try {
+            await saveSync();
+            const res = await fn(s);
+            App.refreshAllViews();
+            if (id === 'btnSyncPull') App.toast('Pulled: +' + res.pulledProducts + ' products, +' + res.pulledQueue + ' queue');
+            else App.toast('Pushed: ' + res.products + ' products, ' + res.queue + ' queue items');
+          } catch (e) {
+            App.toast(e.message, true);
+          }
+          btn.disabled = false;
+          btn.textContent = label;
+        };
+      };
+      syncBtn('btnSyncPull', (st) => ShopSync.pull(st));
+      syncBtn('btnSyncPush', (st) => ShopSync.push(st));
 
       document.getElementById('btnExportAll').onclick = async () => {
         const data = await ShopDB.exportAll();
