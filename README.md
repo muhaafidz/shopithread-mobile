@@ -51,9 +51,11 @@ The key stays on your device. Template mode keeps working without it.
 ## 🗺️ Roadmap
 
 - [x] Phase 1 — PWA core (this app)
-- [ ] Phase 2 — Cloud sync via private GitHub repo (desktop extension "Push to Phone")
+- [x] Phase 2 — Cloud sync via private GitHub repo (desktop extension "Push to Phone")
 - [ ] Phase 3 — Android APK (Capacitor) with on-phone Shopee Affiliate scraper
 - [ ] Phase 4 — Threads API multi-account auto-posting (server-side tokens)
+
+Full cross-session plan, decisions log, and implementation checklists: **[PLAN.md](PLAN.md)**
 
 ## 🔗 Related
 
