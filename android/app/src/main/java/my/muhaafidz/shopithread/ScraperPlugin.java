@@ -39,7 +39,7 @@ public class ScraperPlugin extends Plugin {
             return;
         }
         try {
-            JSObject out = JSObject.fromJson(json);
+            JSObject out = new JSObject(json);
             call.resolve(out);
         } catch (Exception e) {
             call.reject("Failed to parse scraper result: " + e.getMessage());
