@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ShopiThread MY</string>
+    <string name="title_activity_main">ShopiThread MY</string>
+    <string name="package_name">my.muhaafidz.shopithread</string>
+    <string name="custom_url_scheme">my.muhaafidz.shopithread</string>
+</resources>

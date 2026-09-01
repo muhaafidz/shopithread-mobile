@@ -7,9 +7,6 @@
       if (s.products.length === 0) {
         return `
           <div class="pane-head"><h2>Products <span class="sub">${s.products.length} saved</span></h2></div>
-          <button class="btn ${ShopScraper.isNative() ? 'btn-primary' : 'btn-ghost'} btn-full" id="btnScrape" style="margin-bottom:12px;">
-            🕸 Scrape Shopee Portal ${ShopScraper.isNative() ? '' : '(Android app only)'}
-          </button>
           <div class="dropzone" id="dropzone">
             <div style="font-size:30px; margin-bottom:6px;">📥</div>
             <b>Import product CSV</b>
@@ -23,9 +20,6 @@
           <h2>Products <span class="sub">${s.products.length} saved · tap 🧵 to open in Studio</span></h2>
           <button class="icon-btn" id="btnAddProduct" title="Add product">➕</button>
         </div>
-        <button class="btn ${ShopScraper.isNative() ? 'btn-primary' : 'btn-ghost'} btn-full" id="btnScrape" style="margin-bottom:12px;">
-          🕸 Scrape Shopee Portal ${ShopScraper.isNative() ? '' : '(Android app only)'}
-        </button>
         <div class="row" style="margin-bottom:12px;">
           <button class="btn btn-ghost btn-sm" id="btnImportCsv" style="flex:1">📥 Import CSV</button>
           <button class="btn btn-ghost btn-sm" id="btnExportCsv" style="flex:1">📤 Export CSV</button>
@@ -93,9 +87,6 @@
 
       document.getElementById('btnAddProduct').onclick = () => this.openEditor(null);
 
-      const scrapeBtn = document.getElementById('btnScrape');
-      if (scrapeBtn) scrapeBtn.onclick = () => this.openScraper();
-
       document.querySelectorAll('.item .act-studio').forEach((b) => {
         b.onclick = () => {
           StudioView.state.productId = b.closest('.item').dataset.id;
@@ -119,78 +110,6 @@
           App.toast('Product deleted');
         };
       });
-    },
-
-    openScraper() {
-      if (!ShopScraper.isNative()) {
-        App.openModal(`
-          <div class="modal-head"><h3>🕸 On-phone scraping</h3><button class="icon-btn" data-close>✕</button></div>
-          <p style="font-size:13px; color:var(--muted); margin-bottom:10px;">
-            Scraping runs inside the <b>Android app</b> (ShopiThread MY APK) — the browser PWA cannot
-            access the Shopee Affiliate portal directly.
-          </p>
-          <p style="font-size:13px; color:var(--muted); margin-bottom:14px;">
-            Until you install the APK: scrape on PC with the desktop extension and use
-            <b>⬆️ Push to Phone</b>, or import a CSV here.
-          </p>
-          <button class="btn btn-ghost btn-full" data-close>Got it</button>
-        `);
-        return;
-      }
-
-      const plugin = ShopScraper.plugin();
-      if (!plugin) return App.toast('Scraper plugin unavailable', true);
-
-      App.openModal(`
-        <div class="modal-head"><h3>🕸 Scrape Shopee Affiliate</h3><button class="icon-btn" data-close>✕</button></div>
-        <label>Pages to scrape</label>
-        <select id="scPages">
-          <option value="1">Current page only</option>
-          <option value="2">2 pages</option>
-          <option value="3">3 pages</option>
-          <option value="5">5 pages</option>
-          <option value="10">10 pages</option>
-        </select>
-        <label>Delay per product</label>
-        <select id="scDelay">
-          <option value="400">Fast (400ms)</option>
-          <option value="600" selected>Normal (600ms)</option>
-          <option value="1000">Safe (1000ms)</option>
-        </select>
-        <div id="scStatus" class="hint" style="min-height:20px; margin:10px 0;">The affiliate portal opens — log in if needed, then tap ▶ Scrape inside it.</div>
-        <button class="btn btn-primary btn-full" id="scGo">🚀 Open Portal &amp; Scrape</button>
-      `);
-
-      let progressListener = null;
-      document.getElementById('scGo').onclick = async () => {
-        const maxPages = parseInt(document.getElementById('scPages').value, 10) || 1;
-        const delayMs = parseInt(document.getElementById('scDelay').value, 10) || 600;
-        const status = document.getElementById('scStatus');
-        const go = document.getElementById('scGo');
-        go.disabled = true;
-        go.textContent = '⏳ Scraping… (close the portal when done)';
-
-        if (plugin.addListener && !progressListener) {
-          progressListener = plugin.addListener('progress', (ev) => {
-            const el = document.getElementById('scStatus');
-            if (el && ev && ev.text) el.textContent = ev.text;
-          });
-        }
-
-        try {
-          const res = await plugin.openScraper({ maxPages, delayMs });
-          const products = res && res.products ? res.products : [];
-          const added = await ShopScraper.saveScraped(products);
-          await App.refreshData();
-          App.refreshAllViews();
-          status.textContent = '✅ Scraped ' + products.length + ' — ' + added + ' new products saved.';
-          App.toast(added + ' new products saved');
-        } catch (e) {
-          status.textContent = '❌ ' + (e.message || 'Scraping failed');
-        }
-        go.disabled = false;
-        go.textContent = '🚀 Open Portal & Scrape';
-      };
     },
 
     async importFile(file) {

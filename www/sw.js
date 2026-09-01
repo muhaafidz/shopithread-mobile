@@ -1,4 +1,4 @@
-const CACHE = 'shopithread-my-v3';
+const CACHE = 'shopithread-my-v2';
 const SHELL = [
   './',
   './index.html',
@@ -8,7 +8,6 @@ const SHELL = [
   './js/db.js',
   './js/ai.js',
   './js/sync.js',
-  './js/scraper.js',
   './js/views/products.js',
   './js/views/studio.js',
   './js/views/queue.js',

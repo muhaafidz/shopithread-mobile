@@ -1,0 +1,27 @@
+{
+  "name": "shopithread-mobile",
+  "version": "1.0.0",
+  "description": "> [!NOTE] > **Fork notice:** Malaysia-localized companion app of the original > [**ShopiThread** by **sodikinnaa**](https://github.com/sodikinnaa/shopithread) (MIT). > All credit for the original engine architecture goes to the original creator — > this project repackages it as a **phone-first PWA** for the Shopee Malaysia market.",
+  "main": "sw.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:web": "node scripts/build-www.js",
+    "cap:sync": "npm run build:web && cap sync android"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/muhaafidz/shopithread-mobile.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/muhaafidz/shopithread-mobile/issues"
+  },
+  "homepage": "https://github.com/muhaafidz/shopithread-mobile#readme",
+  "dependencies": {
+    "@capacitor/android": "^6.2.2",
+    "@capacitor/cli": "^6.2.2",
+    "@capacitor/core": "^6.2.2"
+  }
+}

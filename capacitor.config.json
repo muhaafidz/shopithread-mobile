@@ -1,0 +1,11 @@
+{
+  "appId": "my.muhaafidz.shopithread",
+  "appName": "ShopiThread MY",
+  "webDir": "www",
+  "android": {
+    "allowMixedContent": false
+  },
+  "server": {
+    "androidScheme": "https"
+  }
+}
