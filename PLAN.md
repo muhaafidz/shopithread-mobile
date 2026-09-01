@@ -49,7 +49,7 @@ github.com/settings/personal-access-tokens/new → only `shopithread-sync` →
 Contents: Read and write → paste into PWA Settings (phone) AND dashboard
 Import & Export → Phone Sync (PC). Then Test → Push.
 
-## ⬜ Phase 3 — Android APK (NEXT)
+## ✅ Phase 3 — Android APK (DONE)
 Concrete checklist:
 1. Add Capacitor to `shopithread-mobile` (`npm i @capacitor/core @capacitor/cli @capacitor/android`)
    - `npx cap init` (appId `my.muhaafidz.shopithread`, webDir `.` or `dist/`)
@@ -64,6 +64,20 @@ Concrete checklist:
 5. CI build: `.github/workflows/android.yml` — JDK 17 + Android SDK (preinstalled on ubuntu runners) → `cap sync && ./gradlew assembleRelease` → sign with keystore stored as GH secret (base64) → attach APK to GitHub Release
    - Keystore: generate once (`keytool`), store `KEYSTORE_BASE64` + passwords as repo secrets
 6. Distribution: user installs APK from GitHub Releases on phone (sideload)
+
+**DONE 2026-09-01:** v1.0.0-android tag → signed APK `ShopiThreadMY-v1.0.0.apk` on
+https://github.com/muhaafidz/shopithread-mobile/releases/tag/v1.0.0-android
+- 2 CI fixes during bring-up: `new JSObject(json)` (no fromJson API), keystore
+  decodes to `android/app/` (file() resolves relative to app module)
+- Keystore generated locally (JDK17 aarch64 tarball — apt repos broken here);
+  secrets: KEYSTORE_BASE64, KEYSTORE_PASSWORD, KEY_PASSWORD, KEY_ALIAS
+- Rebuild/ship: bump versionCode/versionName in android/app/build.gradle +
+  package.json → tag vX → `gh workflow run android.yml --ref vX`
+- INSTALL ON PHONE: open the release on the phone → download APK → allow
+  "install unknown apps" → install. First run: Products → 🕸 Scrape Shopee
+  Portal → log into the portal inside the app → tap ▶ Scrape.
+- VERIFY IN PERSON: portal desktop-DOM rendering + Get Link modal flow on a
+  real device — not yet exercised (no emulator here).
 
 ## ⬜ Phase 4 — Threads API multi-account (optional, later)
 - Meta developer app, `threads_content_publish` per own account, OAuth flow

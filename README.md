@@ -52,7 +52,7 @@ The key stays on your device. Template mode keeps working without it.
 
 - [x] Phase 1 — PWA core (this app)
 - [x] Phase 2 — Cloud sync via private GitHub repo (desktop extension "Push to Phone")
-- [ ] Phase 3 — Android APK (Capacitor) with on-phone Shopee Affiliate scraper
+- [x] Phase 3 — Android APK (Capacitor) with on-phone Shopee Affiliate scraper → [v1.0.0-android](https://github.com/muhaafidz/shopithread-mobile/releases/tag/v1.0.0-android)
 - [ ] Phase 4 — Threads API multi-account auto-posting (server-side tokens)
 
 Full cross-session plan, decisions log, and implementation checklists: **[PLAN.md](PLAN.md)**
