@@ -1,6 +1,6 @@
 {
   "name": "shopithread-mobile",
-  "version": "1.0.0",
+  "version": "1.1.3",
   "description": "> [!NOTE] > **Fork notice:** Malaysia-localized companion app of the original > [**ShopiThread** by **sodikinnaa**](https://github.com/sodikinnaa/shopithread) (MIT). > All credit for the original engine architecture goes to the original creator — > this project repackages it as a **phone-first PWA** for the Shopee Malaysia market.",
   "main": "sw.js",
   "scripts": {
