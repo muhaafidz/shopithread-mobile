@@ -22,16 +22,29 @@ in one tap — no PC required for the posting workflow.
 - **Products** — CSV import (desktop extension exports), manual add/edit, CSV export
 - **Queue** — save ready captions, 1-tap post, posted tracking
 - **Account profiles** — per-Threads-account caption style, hashtags, reply audience
+- **On-phone scraping (Android app)** — built-in Shopee Affiliate Portal scraper with
+  desktop-UA WebView, live progress, and 1-tap product import (no PC needed)
 - **1-tap posting** — official Threads web intent opens the Threads app pre-filled
 - **Installable & offline** — PWA with service worker; add to home screen
 - **100% client-side** — data stays in your device's IndexedDB; keys never leave the device
 
-## 📱 Install on your phone
+## 📲 Install the Android app (recommended)
+
+Signed APKs are built by CI for every `v*` tag and attached to GitHub Releases:
+**https://github.com/muhaafidz/shopithread-mobile/releases** (latest: [v1.1.3](https://github.com/muhaafidz/shopithread-mobile/releases/tag/v1.1.3))
+
+1. On your phone, open the release page → download `ShopiThreadMY-v*.apk`
+2. Allow *install unknown apps* for your browser when prompted → install
+3. First run: **Products → 🕸 Scrape Shopee Portal** → log into the affiliate portal
+   inside the app → tap **▶ Scrape**
+
+## 🌐 Install the PWA (alternative)
 
 1. Open the live URL in Chrome (Android) or Safari (iOS)
 2. **Android:** menu → *Add to Home screen* / *Install app*
    **iOS:** Share → *Add to Home Screen*
 3. Launch from the home screen — full-screen app, works offline
+   *(the PWA has everything except the on-phone scraper — that requires the Android app)*
 
 ## 🚀 Post to Threads
 
@@ -52,7 +65,7 @@ The key stays on your device. Template mode keeps working without it.
 
 - [x] Phase 1 — PWA core (this app)
 - [x] Phase 2 — Cloud sync via private GitHub repo (desktop extension "Push to Phone")
-- [x] Phase 3 — Android APK (Capacitor) with on-phone Shopee Affiliate scraper → [v1.0.0-android](https://github.com/muhaafidz/shopithread-mobile/releases/tag/v1.0.0-android)
+- [x] Phase 3 — Android APK (Capacitor) with on-phone Shopee Affiliate scraper → [v1.1.3](https://github.com/muhaafidz/shopithread-mobile/releases/latest)
 - [ ] Phase 4 — Threads API multi-account auto-posting (server-side tokens)
 
 Full cross-session plan, decisions log, and implementation checklists: **[PLAN.md](PLAN.md)**
